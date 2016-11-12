@@ -31,13 +31,13 @@
     "permissions": [
         "tabs",
         "<all_urls>",
-        "http://localhost:*/*",
-        "https://localhost:*/*",
-        "http://www.localhost:*/*",
-        "https://www.localhost:*/*",
         "http://localhost/*",
         "https://localhost/*",
-        "http://www.localhost/*",
-        "https://www.localhost/*"
+        "http://localhost:*/*",
+        "https://localhost:*/*",
+        "http://localhost.com:*/*",
+        "https://localhost.com:*/*",
+        "http://www.localhost.com/*",
+        "https://www.localhost.com/*",
     ]
 }
