@@ -4,19 +4,40 @@
     "description": "This extension takes a screenshot on load of a specific site and sends it to a server.",
     "version": "1.0",
     "content_scripts": [{
-        "matches": ["*localhost*"],
-        "js": ["jquery.js", "content.js"]
+        "matches": [
+            "http://localhost:*/*",
+            "https://localhost:*/*",
+            "http://www.localhost:*/*",
+            "https://www.localhost:*/*",
+            "http://localhost/*",
+            "https://localhost/*",
+            "http://www.localhost/*",
+            "https://www.localhost/*"
+        ],
+        "js": [
+            "jquery.js",
+            "content.js"
+        ],
+        "run_at": "document_idle"
     }],
     "browser_action": {
       "default_icon": "nProgress_icon.png"
     },
     "background": {
-        "scripts": ["background.js"],
-        "persistent": true
+        "scripts": [
+            "background.js"
+        ]
     },
     "permissions": [
         "tabs",
-        "*localhost*",
-        "<all_urls>"
+        "<all_urls>",
+        "http://localhost:*/*",
+        "https://localhost:*/*",
+        "http://www.localhost:*/*",
+        "https://www.localhost:*/*",
+        "http://localhost/*",
+        "https://localhost/*",
+        "http://www.localhost/*",
+        "https://www.localhost/*"
     ]
 }
