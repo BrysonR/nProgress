@@ -9,19 +9,18 @@
 
     function saveSettings () {
         var cards = [];
-        var projectsList = $('.project-card');
-
+        var projectsList = $('.projects-list');
 
         $('.project-card').each(function (index, card) {
-            if (projectsList.length <= 1) return;
-
             var cardToSave = {};
 
             cardToSave.projectName = $($(card).children()[1]).children()[1].value;
             cardToSave.urlPattern = $($(card).children()[2]).children()[1].value;
 
-            cards.push(cardToSave);
+            if (cardToSave.projectName !== '') cards.push(cardToSave);
         });
+
+        if (cards.length === projectsList.length) $(projectsList).append(window.clonedCard);
 
         chrome.storage.sync.set({projects: cards}, function () {
             console.log('Saved the following projects: %O', cards);
@@ -35,11 +34,9 @@
             if (data.projects === undefined) return;
             var projects = data.projects;
 
-            console.log(projects);
-
-                data.projects.forEach(function (project) {
-                    $(projectsList).append(window.clonedCard);
-                });
+            data.projects.forEach(function (project) {
+                $(projectsList).append(window.clonedCard);
+            });
 
             data.projects.forEach(function (project, index) {
                 $('.project-card').each(function (index, card) {
