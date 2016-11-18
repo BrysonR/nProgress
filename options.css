@@ -27,6 +27,10 @@ h1 {
     position: relative;
 }
 
+.project-card:last-of-type .close-icon {
+    display: none;
+}
+
 .close-icon {
     color: #CCCCCC;
     position: absolute;

@@ -3,13 +3,18 @@
         $('.close-icon').click(function () {
             var projectToRemove = $(this).parent();
             removeProject(projectToRemove);
+            saveSettings();
         });
     }
 
     function saveSettings () {
         var cards = [];
+        var projectsList = $('.project-card');
+
 
         $('.project-card').each(function (index, card) {
+            if (projectsList.length <= 1) return;
+
             var cardToSave = {};
 
             cardToSave.projectName = $($(card).children()[1]).children()[1].value;
@@ -25,8 +30,6 @@
 
     function loadSettings () {
         var projectsList = $('.projects-list');
-        var projectCard = $('.project-card')[0]
-        var clonedCard = $(projectCard).clone();
 
         chrome.storage.sync.get(function (data) {
             if (data.projects === undefined) return;
@@ -34,17 +37,19 @@
 
             console.log(projects);
 
-            if (data.projects.length > 1) {
                 data.projects.forEach(function (project) {
-                    $(projectsList).append(clonedCard);
+                    $(projectsList).append(window.clonedCard);
                 });
-            }
 
-            data.projects.forEach(function (project) {
+            data.projects.forEach(function (project, index) {
                 $('.project-card').each(function (index, card) {
-                    $($(card).children()[1]).children()[1].value = project.projectName;
-                    $($(card).children()[2]).children()[1].value = project.urlPattern;
+                    if (index < data.projects.length) {
+                        $($(card).children()[1]).children()[1].value = project.projectName;
+                        $($(card).children()[2]).children()[1].value = project.urlPattern;
+                    }
+
                 });
+
             });
 
             initializeCloseButtons();
@@ -53,9 +58,14 @@
 
     function removeProject (project) {
         project.remove();
+
+        var projectsList = $('.projects-list');
+        $(projectsList).append(window.clonedCard);
     }
 
     $(function () {
+        var projectCard = $('.project-card')[0]
+        window.clonedCard = $(projectCard).clone();
         loadSettings();
         $('#save').click(function () {
             saveSettings();
