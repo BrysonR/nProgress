@@ -1,6 +1,7 @@
 {
     "manifest_version": 2,
     "name": "nProgress",
+    "short_name": "nProgress",
     "description": "This extension takes a screenshot on load of a specific site and sends it to a server.",
     "version": "1.0",
     "content_scripts": [{
