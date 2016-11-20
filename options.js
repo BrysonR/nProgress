@@ -30,7 +30,8 @@
     function loadSettings () {
         var projectsList = $('.projects-list');
 
-        chrome.storage.sync.get(function (data) {
+        chrome.storage.sync.get('projects', function (data) {
+            debugger;
             if (data.projects === undefined) return;
             var projects = data.projects;
 
