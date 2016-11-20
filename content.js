@@ -12,17 +12,19 @@ chrome.storage.sync.get(function (data) {
         var isMatch = matchRule(window.location.href, project.urlPattern);
 
         if (isMatch) {
-            chrome.runtime.sendMessage({msg: "capture"}, function(response, err) {
-                $.ajax({
-                    type: "POST",
-                    url: "http://📷📸📷.ws:3000/image", //xn--tu8hac.ws
-                    data: {
-                        "project": project.projectName,
-                        "imageData": response.imageData
-                    },
-                    dataType: "json"
+            setTimeout(function () {
+                chrome.runtime.sendMessage({msg: "capture"}, function(response, err) {
+                    $.ajax({
+                        type: "POST",
+                        url: "https://the-dark-si.de/image", //xn--tu8hac.ws
+                        data: {
+                            "project": project.projectName,
+                            "imageData": response.imageData
+                        },
+                        dataType: "json"
+                    });
                 });
-            });
+            }, 1000);
         }
     });
 });
