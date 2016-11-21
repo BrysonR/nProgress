@@ -22,7 +22,7 @@ function getRandomToken() {
 chrome.storage.sync.get('userid', function(items) {
     var userid = items.userid;
     if (userid) {
-        useToken(userid);
+        takeScreenshot(userid);
     } else {
         userid = getRandomToken();
         chrome.storage.sync.set({userid: userid}, function() {
