@@ -30,6 +30,8 @@
         ]
     },
     "permissions": [
+        "identity",
+        "identity.email",
         "storage",
         "tabs",
         "<all_urls>",
